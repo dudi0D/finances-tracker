@@ -1,0 +1,21 @@
+POST http://localhost:80/api/item
+Content-Type: application/json
+
+{}
+
+###
+GET http://localhost:8000/api/users/2/
+Accept: application/json
+Authorization: Token 9b04b6a1204bb9d64391ad20651fad5def3b9e62
+###
+
+###
+POST http://localhost:8000/api/records/
+Content-Type: application/json
+Authorization: Token 9b04b6a1204bb9d64391ad20651fad5def3b9e62
+
+{
+"type": "GAIN",
+"size": 6.44
+}
+###
