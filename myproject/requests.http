@@ -1,8 +1,3 @@
-POST http://localhost:80/api/item
-Content-Type: application/json
-
-{}
-
 ###
 GET http://localhost:8000/api/users/2/
 Accept: application/json
