@@ -78,3 +78,21 @@ def update_user(request, pk):
     elif request.method == 'DELETE':
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+def auth_by_token(request):
+    user = Token.objects.get(key=request.data)
+    print(user)
+
+@api_view(['POST'])
+def auth_by_password(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return Response({'error': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
+    if user.check_password(password):
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key}, status=status.HTTP_200_OK)
+    return Response({'error': 'Неверный пароль'}, status=status.HTTP_400_BAD_REQUEST)
