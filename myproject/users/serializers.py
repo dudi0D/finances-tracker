@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from users.models import Records
+from users.models import Records, Currencies
+
 
 class RecordSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,3 +25,9 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(validated_data['password'])
             validated_data.pop('password')
         return super().update(instance, validated_data)
+
+
+class CurrenciesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Currencies
+        fields = ['id', 'name', 'base', 'rate']

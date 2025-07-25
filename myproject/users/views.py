@@ -14,7 +14,8 @@ from rest_framework.authtoken.models import Token
 @permission_classes([IsAuthenticated])
 def records_list(request):
     if request.method == 'GET':
-        records = Records.objects.all()
+        user_id = User.objects.get(username=request.user).id
+        records = Records.objects.filter(user_id=user_id)
         serializer = RecordSerializer(records, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
